@@ -90,7 +90,6 @@ public:
 	SCHEMA_FIELD(uint32_t, m_nCrouchState)
 	SCHEMA_FIELD(bool, m_bInDuckJump)
 	SCHEMA_FIELD(float, m_flSurfaceFriction)
-	SCHEMA_FIELD(bool, m_bDucked)
 };
 
 class CCSPlayer_MovementServices : public CPlayer_MovementServices_Humanoid
@@ -103,6 +102,7 @@ public:
 	SCHEMA_FIELD(float, m_flStamina)
 	SCHEMA_FIELD(float, m_flDuckSpeed)
 	SCHEMA_FIELD(bool, m_bDuckOverride)
+	SCHEMA_FIELD(bool, m_bDucked)
 };
 
 class CPlayer_WeaponServices : public CPlayerPawnComponent
