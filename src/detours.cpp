@@ -280,7 +280,7 @@ void TryPlayerMovePre(CCSPlayer_MovementServices *ms, Vector *pFirstDest, trace_
 			potentiallyStuck = pm.m_flFraction == 0.0f;
 		}
 
-		if (pm.m_flFraction * velocity.Length() > 0.03125f)
+		if (pm.m_flFraction * velocity.Length() > 0.03125f || pm.m_flFraction > 0.03125f)
 		{
 			allFraction += pm.m_flFraction;
 			start = pm.m_vEndPos;
@@ -291,6 +291,13 @@ void TryPlayerMovePre(CCSPlayer_MovementServices *ms, Vector *pFirstDest, trace_
 			break;
 		}
 		timeLeft -= gpGlobals->frametime * pm.m_flFraction;
+
+		if (numPlanes >= 5 || (pm.m_vHitNormal.z >= 0.7f && velocity.Length2D() < 1.0f))
+		{
+			VectorCopy(vec3_origin, velocity);
+			break;
+		}
+
 		planes[numPlanes] = pm.m_vHitNormal;
 		numPlanes++;
 		if (numPlanes == 1 && pawn->m_MoveType() == MOVETYPE_WALK && pawn->m_hGroundEntity().Get() == nullptr)
@@ -328,7 +335,7 @@ void TryPlayerMovePre(CCSPlayer_MovementServices *ms, Vector *pFirstDest, trace_
 			}
 			else
 			{ // go along the crease
-				if (numPlanes != 2  || (pm.m_vHitNormal.z >= 0.7 && velocity.Length2D() < 1.0f))
+				if (numPlanes != 2)
 				{
 					VectorCopy(vec3_origin, velocity);
 					break;
@@ -336,6 +343,7 @@ void TryPlayerMovePre(CCSPlayer_MovementServices *ms, Vector *pFirstDest, trace_
 				Vector dir;
 				f32 d;
 				CrossProduct(planes[0], planes[1], dir);
+				dir.NormalizeInPlace();
 				dir.NormalizeInPlace();
 				d = dir.Dot(velocity);
 				VectorScale(dir, d, velocity);
