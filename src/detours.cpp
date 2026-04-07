@@ -180,14 +180,17 @@ void TryPlayerMovePre(CCSPlayer_MovementServices *ms, Vector *pFirstDest, trace_
 			{
 				continue;
 			}
-			if (IsValidMovementTrace(pm, bounds, &filter) && pm.m_flFraction == 1.0f)
+			if (!pm.m_bStartInSolid && pm.m_flFraction == 1.0f)
 			{
 				// Player won't hit anything, nothing to do.
 				break;
 			}
-			if (player->lastValidPlane.Length() > FLT_EPSILON
-				&& (!IsValidMovementTrace(pm, bounds, &filter) || pm.m_vHitNormal.Dot(player->lastValidPlane) < RAMP_BUG_THRESHOLD
-					|| (potentiallyStuck && pm.m_flFraction == 0.0f)))
+			bool validMovementTrace = IsValidMovementTrace(pm, bounds, &filter);
+			bool normalChanged = !validMovementTrace || pm.m_vHitNormal.Dot(player->lastValidPlane) < RAMP_BUG_THRESHOLD;
+			bool stuck = potentiallyStuck && pm.m_flFraction == 0.0f;
+			bool lastValidPlaneWasStraightWall = player->lastValidPlane.z < 0.03125f;
+			bool shouldConsiderRampbug = (normalChanged && !lastValidPlaneWasStraightWall) || stuck;
+			if (player->lastValidPlane.Length() > FLT_EPSILON && shouldConsiderRampbug)
 			{
 				// We hit a plane that will significantly change our velocity. Make sure that this plane is significant
 				// enough.
@@ -222,7 +225,7 @@ void TryPlayerMovePre(CCSPlayer_MovementServices *ms, Vector *pFirstDest, trace_
 							bool goodTrace {};
 							f32 ratio {};
 							bool hitNewPlane {};
-							for (ratio = 0.1f; ratio <= 1.0f; ratio += 0.1f)
+							for (ratio = 0.25f; ratio <= 1.0f; ratio += 0.25f)
 							{
 								addresses::TracePlayerBBox(start + offsetDirection * RAMP_PIERCE_DISTANCE * ratio,
 															end + offsetDirection * RAMP_PIERCE_DISTANCE * ratio, bounds, &filter, pierce);
