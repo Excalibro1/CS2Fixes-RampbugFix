@@ -118,6 +118,7 @@ public:
 	Vector tpmVelocity = vec3_invalid;
 	Vector tpmOrigin = vec3_invalid;
 	Vector lastValidPlane;
+	bool lastValidPlaneFresh {};
 	
 	void SetConnected() { m_bConnected = true; }
 	void SetUnauthenticatedSteamId(const CSteamID* steamID) { m_UnauthenticatedSteamID = steamID; }

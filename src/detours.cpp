@@ -124,11 +124,14 @@ bool IsValidMovementTrace(trace_t &tr, bbox_t bounds, CTraceFilterPlayerMovement
 #define NEW_RAMP_THRESHOLD 0.95f
 #define RAMPFIX_ENABLE_FULL_TPM_REPLAY 0
 #define RAMPFIX_PLANE_SEED_MIN_Z_SPEED -32.0f
+#define RAMPFIX_MIN_PLANE_Z 0.03125f
+#define RAMPFIX_MAX_PLANE_Z 0.7f
 void TryPlayerMovePre(CCSPlayer_MovementServices *ms, Vector *pFirstDest, trace_t *pFirstTrace, bool *bIsSurfing)
 {
 	CCSPlayerPawn *pawn = ms->GetPawn();
 	ZEPlayer *player = g_playerManager->GetPlayer(pawn->m_hController()->GetPlayerSlot());
 	player->overrideTPM = false;
+	player->lastValidPlaneFresh = false;
 	player->didTPM = true;
 	player->tpmOrigin = vec3_invalid;
 	player->tpmVelocity = vec3_invalid;
@@ -166,9 +169,14 @@ void TryPlayerMovePre(CCSPlayer_MovementServices *ms, Vector *pFirstDest, trace_
 		addresses::TracePlayerBBox(start, end, bounds, &filter, pm);
 	}
 
-	if (!pm.m_bStartInSolid && pm.m_flFraction < 1.0f && pm.m_vHitNormal.Length() > 0.99f)
+	if (!pm.m_bStartInSolid
+		&& pm.m_flFraction < 1.0f
+		&& pm.m_vHitNormal.Length() > 0.99f
+		&& pm.m_vHitNormal.z > RAMPFIX_MIN_PLANE_Z
+		&& pm.m_vHitNormal.z < RAMPFIX_MAX_PLANE_Z)
 	{
 		player->lastValidPlane = pm.m_vHitNormal;
+		player->lastValidPlaneFresh = true;
 	}
 
 	return;
@@ -451,7 +459,7 @@ void CategorizePositionPre(CCSPlayer_MovementServices *ms, CMoveData *mv, bool b
 
 	// Already on the ground?
 	// If we are already colliding on a standable valid plane, we don't want to do the check.
-	if (bStayOnGround || player->lastValidPlane.Length() < 0.000001f|| player->lastValidPlane.z > 0.7f)
+	if (bStayOnGround || !player->lastValidPlaneFresh || player->lastValidPlane.Length() < 0.000001f || player->lastValidPlane.z > RAMPFIX_MAX_PLANE_Z)
 	{
 		return;
 	}
@@ -489,7 +497,7 @@ void CategorizePositionPre(CCSPlayer_MovementServices *ms, CMoveData *mv, bool b
 	// Is this something that you should be able to actually stand on?
 	if (trace.m_flFraction < 0.95f && trace.m_vHitNormal.z > 0.7f && player->lastValidPlane.Dot(trace.m_vHitNormal) < RAMP_BUG_THRESHOLD)
 	{
-		origin += player->lastValidPlane * 0.0625f;
+		origin += player->lastValidPlane * 0.03125f;
 		groundOrigin = origin;
 		groundOrigin.z -= 2.0f;
 		addresses::TracePlayerBBox(origin, groundOrigin, bounds, &filter, trace);
@@ -513,6 +521,7 @@ void FASTCALL Detour_CategorizePosition(CCSPlayer_MovementServices *ms, CMoveDat
 	ZEPlayer *player = g_playerManager->GetPlayer(pawn->m_hController()->GetPlayerSlot());
 	if (player)
 	{
+		player->lastValidPlaneFresh = false;
 		player->processingMovement = false;
 		player->currentMoveData = nullptr;
 	}
