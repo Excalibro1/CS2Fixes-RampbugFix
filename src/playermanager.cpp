@@ -178,19 +178,18 @@ CCSPlayerPawn *ZEPlayer::GetPawn()
 
 void ZEPlayer::GetOrigin(Vector *origin)
 {
-	// if (this->processingMovement && this->currentMoveData)
-	//  {
-	//  	*origin = this->currentMoveData->m_vecAbsOrigin;
-	//  }
-	//  else
-	//  {
+	if (this->processingMovement && this->currentMoveData)
+	{
+		*origin = this->currentMoveData->m_vecAbsOrigin;
+		return;
+	}
+
 	CBasePlayerPawn *pawn = this->GetPawn();
 	if (!pawn)
 	{
 		return;
 	}
 	*origin = pawn->m_CBodyComponent()->m_pSceneNode()->m_vecAbsOrigin();
-	// }
 }
 
 void ZEPlayer::SetOrigin(const Vector &origin)

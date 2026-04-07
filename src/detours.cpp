@@ -122,12 +122,57 @@ bool IsValidMovementTrace(trace_t &tr, bbox_t bounds, CTraceFilterPlayerMovement
 #define RAMP_BUG_THRESHOLD 0.99f
 #define RAMP_BUG_VELOCITY_THRESHOLD 0.95f 
 #define NEW_RAMP_THRESHOLD 0.95f
+#define RAMPFIX_ENABLE_FULL_TPM_REPLAY 0
+#define RAMPFIX_PLANE_SEED_MIN_Z_SPEED -32.0f
 void TryPlayerMovePre(CCSPlayer_MovementServices *ms, Vector *pFirstDest, trace_t *pFirstTrace, bool *bIsSurfing)
 {
 	CCSPlayerPawn *pawn = ms->GetPawn();
 	ZEPlayer *player = g_playerManager->GetPlayer(pawn->m_hController()->GetPlayerSlot());
 	player->overrideTPM = false;
 	player->didTPM = true;
+	player->tpmOrigin = vec3_invalid;
+	player->tpmVelocity = vec3_invalid;
+
+#if !RAMPFIX_ENABLE_FULL_TPM_REPLAY
+	Vector start, velocity, end;
+	player->GetOrigin(&start);
+	player->GetVelocity(&velocity);
+
+	// Valve has reduced rampbug frequency; keep this path as a cheap plane seed and
+	// let CategorizePosition handle the small nudge instead of replaying movement.
+	if (velocity.Length() == 0.0f || velocity.z > RAMPFIX_PLANE_SEED_MIN_Z_SPEED)
+	{
+		return;
+	}
+
+	bbox_t bounds;
+	bounds.mins = {-16, -16, 0};
+	bounds.maxs = {16, 16, 72};
+
+	if (ms->m_bDucked())
+	{
+		bounds.maxs.z = 54;
+	}
+
+	trace_t pm;
+	VectorMA(start, gpGlobals->frametime, velocity, end);
+	if (pFirstDest && pFirstTrace && end == *pFirstDest)
+	{
+		pm = *pFirstTrace;
+	}
+	else
+	{
+		CTraceFilterPlayerMovementCS filter(pawn);
+		addresses::TracePlayerBBox(start, end, bounds, &filter, pm);
+	}
+
+	if (!pm.m_bStartInSolid && pm.m_flFraction < 1.0f && pm.m_vHitNormal.Length() > 0.99f)
+	{
+		player->lastValidPlane = pm.m_vHitNormal;
+	}
+
+	return;
+#else
 
 	f32 timeLeft = gpGlobals->frametime;
 
@@ -358,12 +403,13 @@ void TryPlayerMovePre(CCSPlayer_MovementServices *ms, Vector *pFirstDest, trace_
 	}
 	player->tpmOrigin = pm.m_vEndPos;
 	player->tpmVelocity = velocity;
+#endif
 }
 
 void TryPlayerMovePost(CCSPlayer_MovementServices *ms, bool *bIsSurfing)
 {
 	ZEPlayer *player = g_playerManager->GetPlayer(ms->GetPawn()->m_hController()->GetPlayerSlot());
-	if(!player)
+	if(!player || !player->overrideTPM)
 		return;
 	Vector velocity;
 	player->GetVelocity(&velocity);
