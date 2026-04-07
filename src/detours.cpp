@@ -47,29 +47,8 @@ extern CCSGameRules *g_pGameRules;
 
 CUtlVector<CDetourBase *> g_vecDetours;
 
-DECLARE_DETOUR(ProcessMovement, Detour_ProcessMovement);
 DECLARE_DETOUR(TryPlayerMove, Detour_TryPlayerMove);
 DECLARE_DETOUR(CategorizePosition, Detour_CategorizePosition);
-
-
-void FASTCALL Detour_ProcessMovement(CCSPlayer_MovementServices *pThis, void *pMove)
-{
-	CCSPlayerPawn *pPawn = pThis->GetPawn();
-
-	ZEPlayer *player = g_playerManager->GetPlayer(pPawn->m_hController()->GetPlayerSlot());
-	if(!player) return ProcessMovement(pThis, pMove);
-	
-	player->currentMoveData = static_cast<CMoveData*>(pMove);
-	player->didTPM = false;
-	player->processingMovement = true;
-
-	ProcessMovement(pThis, pMove);
-	
-	if(!player->didTPM)
-		player->lastValidPlane = vec3_origin;
-	
-	player->processingMovement = false;
-}
 
 #define f32 float32
 #define i32 int32_t
@@ -389,15 +368,30 @@ void TryPlayerMovePost(CCSPlayer_MovementServices *ms, bool *bIsSurfing)
 
 void FASTCALL Detour_TryPlayerMove(CCSPlayer_MovementServices *ms, CMoveData *mv, Vector *pFirstDest, trace_t *pFirstTrace, bool *bIsSurfing)
 {
+	CCSPlayerPawn *pawn = ms->GetPawn();
+	ZEPlayer *player = g_playerManager->GetPlayer(pawn->m_hController()->GetPlayerSlot());
+	if (!player)
+		return TryPlayerMove(ms, mv, pFirstDest, pFirstTrace, bIsSurfing);
+
+	player->currentMoveData = mv;
+	player->processingMovement = true;
 	TryPlayerMovePre(ms, pFirstDest, pFirstTrace, bIsSurfing);
 	TryPlayerMove(ms, mv, pFirstDest, pFirstTrace, bIsSurfing);
 	TryPlayerMovePost(ms, bIsSurfing);
+	player->processingMovement = false;
+	player->currentMoveData = nullptr;
 }
 
-void CategorizePositionPre(CCSPlayer_MovementServices *ms,bool bStayOnGround)
+void CategorizePositionPre(CCSPlayer_MovementServices *ms, CMoveData *mv, bool bStayOnGround)
 {
 	CCSPlayerPawn *pawn = ms->GetPawn();
 	ZEPlayer *player = g_playerManager->GetPlayer(pawn->m_hController()->GetPlayerSlot());
+	if (!player)
+		return;
+
+	player->currentMoveData = mv;
+	player->processingMovement = true;
+
 	// Already on the ground?
 	// If we are already colliding on a standable valid plane, we don't want to do the check.
 	if (bStayOnGround || player->lastValidPlane.Length() < 0.000001f|| player->lastValidPlane.z > 0.7f)
@@ -455,8 +449,16 @@ void CategorizePositionPre(CCSPlayer_MovementServices *ms,bool bStayOnGround)
 
 void FASTCALL Detour_CategorizePosition(CCSPlayer_MovementServices *ms, CMoveData *mv, bool bStayOnGround)
 {
-	CategorizePositionPre(ms, bStayOnGround);
+	CategorizePositionPre(ms, mv, bStayOnGround);
 	CategorizePosition(ms, mv, bStayOnGround);
+
+	CCSPlayerPawn *pawn = ms->GetPawn();
+	ZEPlayer *player = g_playerManager->GetPlayer(pawn->m_hController()->GetPlayerSlot());
+	if (player)
+	{
+		player->processingMovement = false;
+		player->currentMoveData = nullptr;
+	}
 }
 
 bool InitDetours(CGameConfig *gameConfig)
