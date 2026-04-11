@@ -60,8 +60,8 @@ PROTOBUF_ATTRIBUTE_WEAK const ::_pbi::DescriptorTable* descriptor_table_steammes
   return &descriptor_table_steammessages_5funified_5fbase_2esteamworkssdk_2eproto;
 }
 
-// Force running AddDescriptors() at dynamic initialization time.
-PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 static ::_pbi::AddDescriptorsRunner dynamic_init_dummy_steammessages_5funified_5fbase_2esteamworkssdk_2eproto(&descriptor_table_steammessages_5funified_5fbase_2esteamworkssdk_2eproto);
+// Disabled eager descriptor registration to avoid colliding with CS2's global protobuf database.
+// PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 static ::_pbi::AddDescriptorsRunner dynamic_init_dummy_steammessages_5funified_5fbase_2esteamworkssdk_2eproto(&descriptor_table_steammessages_5funified_5fbase_2esteamworkssdk_2eproto);
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* EProtoExecutionSite_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_steammessages_5funified_5fbase_2esteamworkssdk_2eproto);
   return file_level_enum_descriptors_steammessages_5funified_5fbase_2esteamworkssdk_2eproto[0];
@@ -77,28 +77,29 @@ bool EProtoExecutionSite_IsValid(int value) {
 }
 
 const std::string description_default("");
-PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 ::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::PROTOBUF_NAMESPACE_ID::FieldOptions,
-    ::PROTOBUF_NAMESPACE_ID::internal::StringTypeTraits, 9, false>
-  description(kDescriptionFieldNumber, description_default, nullptr);
+// Disabled eager native extension registration to avoid colliding with CS2's global protobuf database.
+// PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 ::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::PROTOBUF_NAMESPACE_ID::FieldOptions,
+//     ::PROTOBUF_NAMESPACE_ID::internal::StringTypeTraits, 9, false>
+//   description(kDescriptionFieldNumber, description_default, nullptr);
 const std::string service_description_default("");
-PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 ::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::PROTOBUF_NAMESPACE_ID::ServiceOptions,
-    ::PROTOBUF_NAMESPACE_ID::internal::StringTypeTraits, 9, false>
-  service_description(kServiceDescriptionFieldNumber, service_description_default, nullptr);
-PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 ::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::PROTOBUF_NAMESPACE_ID::ServiceOptions,
-    ::PROTOBUF_NAMESPACE_ID::internal::EnumTypeTraits< ::EProtoExecutionSite, ::EProtoExecutionSite_IsValid>, 14, false>
-  service_execution_site(kServiceExecutionSiteFieldNumber, static_cast< ::EProtoExecutionSite >(0), nullptr);
+// PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 ::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::PROTOBUF_NAMESPACE_ID::ServiceOptions,
+//     ::PROTOBUF_NAMESPACE_ID::internal::StringTypeTraits, 9, false>
+//   service_description(kServiceDescriptionFieldNumber, service_description_default, nullptr);
+// PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 ::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::PROTOBUF_NAMESPACE_ID::ServiceOptions,
+//     ::PROTOBUF_NAMESPACE_ID::internal::EnumTypeTraits< ::EProtoExecutionSite, ::EProtoExecutionSite_IsValid>, 14, false>
+//   service_execution_site(kServiceExecutionSiteFieldNumber, static_cast< ::EProtoExecutionSite >(0), nullptr);
 const std::string method_description_default("");
-PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 ::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::PROTOBUF_NAMESPACE_ID::MethodOptions,
-    ::PROTOBUF_NAMESPACE_ID::internal::StringTypeTraits, 9, false>
-  method_description(kMethodDescriptionFieldNumber, method_description_default, nullptr);
+// PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 ::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::PROTOBUF_NAMESPACE_ID::MethodOptions,
+//     ::PROTOBUF_NAMESPACE_ID::internal::StringTypeTraits, 9, false>
+//   method_description(kMethodDescriptionFieldNumber, method_description_default, nullptr);
 const std::string enum_description_default("");
-PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 ::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::PROTOBUF_NAMESPACE_ID::EnumOptions,
-    ::PROTOBUF_NAMESPACE_ID::internal::StringTypeTraits, 9, false>
-  enum_description(kEnumDescriptionFieldNumber, enum_description_default, nullptr);
+// PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 ::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::PROTOBUF_NAMESPACE_ID::EnumOptions,
+//     ::PROTOBUF_NAMESPACE_ID::internal::StringTypeTraits, 9, false>
+//   enum_description(kEnumDescriptionFieldNumber, enum_description_default, nullptr);
 const std::string enum_value_description_default("");
-PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 ::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::PROTOBUF_NAMESPACE_ID::EnumValueOptions,
-    ::PROTOBUF_NAMESPACE_ID::internal::StringTypeTraits, 9, false>
-  enum_value_description(kEnumValueDescriptionFieldNumber, enum_value_description_default, nullptr);
+// PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 ::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::PROTOBUF_NAMESPACE_ID::EnumValueOptions,
+//     ::PROTOBUF_NAMESPACE_ID::internal::StringTypeTraits, 9, false>
+//   enum_value_description(kEnumValueDescriptionFieldNumber, enum_value_description_default, nullptr);
 
 // @@protoc_insertion_point(namespace_scope)
 PROTOBUF_NAMESPACE_OPEN

@@ -62,40 +62,41 @@ PROTOBUF_ATTRIBUTE_WEAK const ::_pbi::DescriptorTable* descriptor_table_valveext
   return &descriptor_table_valveextensions_2eproto;
 }
 
-// Force running AddDescriptors() at dynamic initialization time.
-PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 static ::_pbi::AddDescriptorsRunner dynamic_init_dummy_valveextensions_2eproto(&descriptor_table_valveextensions_2eproto);
-PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 ::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::PROTOBUF_NAMESPACE_ID::FieldOptions,
-    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false>
-  valve_map_field(kValveMapFieldFieldNumber, false, nullptr);
-PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 ::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::PROTOBUF_NAMESPACE_ID::FieldOptions,
-    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false>
-  valve_map_key(kValveMapKeyFieldNumber, false, nullptr);
-PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 ::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::PROTOBUF_NAMESPACE_ID::FieldOptions,
-    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< int32_t >, 5, false>
-  diff_encode_field(kDiffEncodeFieldFieldNumber, 0, nullptr);
-PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 ::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::PROTOBUF_NAMESPACE_ID::FieldOptions,
-    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false>
-  delta_ignore(kDeltaIgnoreFieldNumber, false, nullptr);
-PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 ::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::PROTOBUF_NAMESPACE_ID::FieldOptions,
-    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< uint32_t >, 13, false>
-  steamml_max_entries(kSteammlMaxEntriesFieldNumber, 0u, nullptr);
-PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 ::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::PROTOBUF_NAMESPACE_ID::FieldOptions,
-    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false>
-  steamml_is_timestamp(kSteammlIsTimestampFieldNumber, false, nullptr);
-PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 ::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::PROTOBUF_NAMESPACE_ID::FieldOptions,
-    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< uint32_t >, 13, false>
-  steamlearn_count(kSteamlearnCountFieldNumber, 0u, nullptr);
+// Disabled eager descriptor registration to avoid colliding with CS2's global protobuf database.
+// PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 static ::_pbi::AddDescriptorsRunner dynamic_init_dummy_valveextensions_2eproto(&descriptor_table_valveextensions_2eproto);
+// Disabled eager native extension registration to avoid colliding with CS2's global protobuf database.
+// PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 ::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::PROTOBUF_NAMESPACE_ID::FieldOptions,
+//     ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false>
+//   valve_map_field(kValveMapFieldFieldNumber, false, nullptr);
+// PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 ::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::PROTOBUF_NAMESPACE_ID::FieldOptions,
+//     ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false>
+//   valve_map_key(kValveMapKeyFieldNumber, false, nullptr);
+// PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 ::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::PROTOBUF_NAMESPACE_ID::FieldOptions,
+//     ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< int32_t >, 5, false>
+//   diff_encode_field(kDiffEncodeFieldFieldNumber, 0, nullptr);
+// PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 ::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::PROTOBUF_NAMESPACE_ID::FieldOptions,
+//     ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false>
+//   delta_ignore(kDeltaIgnoreFieldNumber, false, nullptr);
+// PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 ::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::PROTOBUF_NAMESPACE_ID::FieldOptions,
+//     ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< uint32_t >, 13, false>
+//   steamml_max_entries(kSteammlMaxEntriesFieldNumber, 0u, nullptr);
+// PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 ::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::PROTOBUF_NAMESPACE_ID::FieldOptions,
+//     ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false>
+//   steamml_is_timestamp(kSteammlIsTimestampFieldNumber, false, nullptr);
+// PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 ::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::PROTOBUF_NAMESPACE_ID::FieldOptions,
+//     ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< uint32_t >, 13, false>
+//   steamlearn_count(kSteamlearnCountFieldNumber, 0u, nullptr);
 const std::string schema_friendly_name_default("");
-PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 ::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::PROTOBUF_NAMESPACE_ID::EnumValueOptions,
-    ::PROTOBUF_NAMESPACE_ID::internal::StringTypeTraits, 9, false>
-  schema_friendly_name(kSchemaFriendlyNameFieldNumber, schema_friendly_name_default, nullptr);
+// PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 ::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::PROTOBUF_NAMESPACE_ID::EnumValueOptions,
+//     ::PROTOBUF_NAMESPACE_ID::internal::StringTypeTraits, 9, false>
+//   schema_friendly_name(kSchemaFriendlyNameFieldNumber, schema_friendly_name_default, nullptr);
 const std::string schema_description_default("");
-PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 ::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::PROTOBUF_NAMESPACE_ID::EnumValueOptions,
-    ::PROTOBUF_NAMESPACE_ID::internal::StringTypeTraits, 9, false>
-  schema_description(kSchemaDescriptionFieldNumber, schema_description_default, nullptr);
-PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 ::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::PROTOBUF_NAMESPACE_ID::EnumValueOptions,
-    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false>
-  schema_suppress_enumerator(kSchemaSuppressEnumeratorFieldNumber, false, nullptr);
+// PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 ::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::PROTOBUF_NAMESPACE_ID::EnumValueOptions,
+//     ::PROTOBUF_NAMESPACE_ID::internal::StringTypeTraits, 9, false>
+//   schema_description(kSchemaDescriptionFieldNumber, schema_description_default, nullptr);
+// PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 ::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::PROTOBUF_NAMESPACE_ID::EnumValueOptions,
+//     ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false>
+//   schema_suppress_enumerator(kSchemaSuppressEnumeratorFieldNumber, false, nullptr);
 
 // @@protoc_insertion_point(namespace_scope)
 PROTOBUF_NAMESPACE_OPEN

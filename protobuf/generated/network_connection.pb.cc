@@ -287,8 +287,8 @@ PROTOBUF_ATTRIBUTE_WEAK const ::_pbi::DescriptorTable* descriptor_table_network_
   return &descriptor_table_network_5fconnection_2eproto;
 }
 
-// Force running AddDescriptors() at dynamic initialization time.
-PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 static ::_pbi::AddDescriptorsRunner dynamic_init_dummy_network_5fconnection_2eproto(&descriptor_table_network_5fconnection_2eproto);
+// Disabled eager descriptor registration to avoid colliding with CS2's global protobuf database.
+// PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 static ::_pbi::AddDescriptorsRunner dynamic_init_dummy_network_5fconnection_2eproto(&descriptor_table_network_5fconnection_2eproto);
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* ENetworkDisconnectionReason_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_network_5fconnection_2eproto);
   return file_level_enum_descriptors_network_5fconnection_2eproto[0];
@@ -420,9 +420,10 @@ bool ENetworkDisconnectionReason_IsValid(int value) {
 }
 
 const std::string network_connection_token_default("");
-PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 ::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::PROTOBUF_NAMESPACE_ID::EnumValueOptions,
-    ::PROTOBUF_NAMESPACE_ID::internal::StringTypeTraits, 9, false>
-  network_connection_token(kNetworkConnectionTokenFieldNumber, network_connection_token_default, nullptr);
+// Disabled eager native extension registration to avoid colliding with CS2's global protobuf database.
+// PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 ::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::PROTOBUF_NAMESPACE_ID::EnumValueOptions,
+//     ::PROTOBUF_NAMESPACE_ID::internal::StringTypeTraits, 9, false>
+//   network_connection_token(kNetworkConnectionTokenFieldNumber, network_connection_token_default, nullptr);
 
 // @@protoc_insertion_point(namespace_scope)
 PROTOBUF_NAMESPACE_OPEN
